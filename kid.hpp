@@ -5,6 +5,16 @@
 #include <string>
 
 
+#define ANGER_THRESHOLD 70
+#define COURAGE_THRESHOLD 30
+#define CHARISMA_THRESHOLD 50
+#define TWENTY 20
+#define FIVE 5
+#define TWO 2
+#define TWOHUNDRED 200
+#define POINT_EIGHT 0.8
+#define DEAD_ANOUNCEMENT "kid died with number: "
+
 //---------------------->
 // angry = anger >= 70 -- charisma = 20 -- courage >= 50
 // peaceful = anger <= 30 -- charisma >= 50 -- courage <= 30
@@ -17,10 +27,18 @@ class kid{
         ~kid();
         enum type {ANGRY, PEACEFUL, COWARD};
         virtual void react(kid*) = 0;
+        virtual void negotiate(kid*);
         type getType();
-        float getAnger;
-        float getCharisma;
-        float getCourage;
+        float getAnger();
+        float getCharisma();
+        float getCourage();
+        float getRadius();
+        float getVelocityX();
+        float getVelocityY();
+        void die();
+        std::string anounceDead();
+        void changeVelocity(float, float); //------------------------->is this supposed to be in protected?
+
         
     protected:
         bool alive;
@@ -35,6 +53,9 @@ class kid{
         int number;
         bool fradgile; //i donno what this is
         type kidType;
+        void addAnger(float);
+        void addCourage(float);
+        void addCharisma(float);
 };
 
 kid::kid(/* args */){

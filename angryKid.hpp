@@ -3,11 +3,14 @@
 #include "kid.hpp"
 #include <iostream>
 
-class angryKid{
+
+class angryKid : public kid{
     public:
-        virtual void react(kid*);
+        void react(kid*);
         angryKid(/* args */);
         ~angryKid();
+        void fight();
+        void negotiate(kid*);
 };
 
 angryKid::angryKid(/* args */)

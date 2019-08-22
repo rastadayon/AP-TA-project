@@ -28,7 +28,7 @@ class kid{
         enum type {ANGRY, PEACEFUL, COWARD};
         virtual void react(kid*) = 0;
         virtual void negotiate(kid*);
-        type getType();
+        virtual type getType();
         float getAnger();
         float getCharisma();
         float getCourage();
@@ -50,7 +50,7 @@ class kid{
         float posY;
         float velocityX;
         float velocityY;
-        int number;
+        int id;
         bool fradgile; //i donno what this is
         type kidType;
         void addAnger(float);

@@ -18,6 +18,7 @@ class Interface{
         std::vector<std::string> readMapFromFile();
         std::vector<std::string> correctMap(std::vector<std::string>);
         void readData();
+        void dataLineParser(std::string);
 };
 
 #endif

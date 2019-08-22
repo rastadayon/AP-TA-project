@@ -1,8 +1,6 @@
 #include "kid.hpp"
 
-kid::type kid::getType(){
-    return kidType;
-}
+kid::type kid::getType(){ return kidType;}
 
 float kid::getAnger(){ return anger;}
 

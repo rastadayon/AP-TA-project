@@ -28,3 +28,5 @@ void peacefulKid::react(kid *opponent){
     if(opponent->getCourage() > COURAGE_THRESHOLD && opponent->getCharisma() > CHARISMA_THRESHOLD)
         unite(opponent);
 }
+
+kid::type peacefulKid::getType(){ return kidType;}

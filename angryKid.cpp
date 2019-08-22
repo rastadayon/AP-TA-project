@@ -1,5 +1,7 @@
 #include "angryKid.hpp"
 
+kid::type angryKid::getType(){ return kidType;}
+
 void angryKid::fight(){
     radius *= POINT_EIGHT;
     anger += FIVE;

@@ -9,7 +9,7 @@ class cowardKid : public kid{
         void react(kid*);
         cowardKid(/* args */);
         ~cowardKid();
-        
+        kid::type getType();
 };
 
 #endif

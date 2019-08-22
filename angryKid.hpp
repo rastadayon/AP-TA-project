@@ -11,6 +11,7 @@ class angryKid : public kid{
         ~angryKid();
         void fight();
         void negotiate(kid*);
+        kid::type getType();
 };
 
 angryKid::angryKid(/* args */)

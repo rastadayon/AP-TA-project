@@ -12,6 +12,7 @@ class peacefulKid : public kid{
         void negotiate(kid*);
         void unite(kid*);
         void chase(kid*);
+        kid::type getType();
 
 };
 

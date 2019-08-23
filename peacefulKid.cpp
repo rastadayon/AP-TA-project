@@ -1,4 +1,9 @@
 #include "peacefulKid.hpp"
+
+peacefulKid::peacefulKid(int id, type kidType, bool fragile, float posX, float posY,
+    float velocityX, float velocityY, float radius, float anger, float charisma, float courage)
+    :kid(id, type::Peaceful, fragile, posX, posY, velocityX, velocityY, radius, anger, charisma, courage){}
+
 void peacefulKid::negotiate(kid *opponent){
     radius = (1 - ((opponent->getCourage() + opponent->getCharisma())/TWOHUNDRED))*POINT_EIGHT*(opponent->getRadius());
     addCourage(-FIVE);

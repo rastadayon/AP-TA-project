@@ -3,17 +3,30 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "exception.hpp"
+#include "kid.hpp"
+#include "angryKid.hpp"
+#include "peacefulKid.hpp"
+#include "cowardKid.hpp"
+#define DATA_SIZE 11
 
 class madHouse{
     std::vector<std::string> map;
     int mapSize;
-    int timeStep;
-    int totalTime;
+    float timeStep;
+    float totalTime;
+    int runTimes = totalTime/timeStep;
+    std::vector<kid *> kids;
 
     public:
-        madHouse(int, int);
+        madHouse(float, float);
         void setMap(int, std::vector<std::string>);
-        ~madHouse();
+        void useData(std::vector<std::string>);
+        void runMadHouse();
+
+    private:
+        void makeKids(int id, std::string kidType, bool fragile, float posX, float posY,
+        float velocityX, float velocityY, float radius, float anger, float charisma, float courage);
 };
 
 #endif

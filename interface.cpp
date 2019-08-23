@@ -1,6 +1,6 @@
 #include "interface.hpp"
 
-Interface::Interface(int timeStep, int totalTime){
+Interface::Interface(float timeStep, float totalTime){
     unclesMadHouse = new madHouse(timeStep, totalTime);
 }
 
@@ -12,6 +12,7 @@ std::vector<std::string> Interface::correctMap(std::vector<std::string> map){
             correctMap.push_back(map[i]);
         }
     }
+    return correctMap;
 }
 
 std::vector<std::string> Interface::readMapFromFile(){
@@ -34,14 +35,37 @@ void Interface::readMap(){
     map = readMapFromFile();
     if(map.size() > 0)
         mapSize = stoi(map[0]);
+
     map = correctMap(map);
     unclesMadHouse->setMap(mapSize, map);
 }
 
-void Interface::readData(){
-    // while (std::cin)
-    // {
-    //     /* code */
-    // }
+void Interface::dataLineParser(std::string data){
     
+}
+
+void Interface::cleanData(std::vector<std::string> &uncleanedData){
+    for (int i = 0; i < uncleanedData.size(); i++){
+        if(uncleanedData[i][uncleanedData[i].size()-1] == COMMA){
+           uncleanedData[i].pop_back();
+        }
+    }
+}
+
+void Interface::readData(){
+    std::string lineOfData;
+    std::string token;
+    while (std::getline (std::cin,lineOfData)){
+        std::vector<std::string> tokenizedData;
+        std::stringstream chek1(lineOfData);
+        while (std::getline (chek1, token, ' ')){
+            tokenizedData.push_back(token);
+        }  
+        cleanData(tokenizedData);
+    }
+    
+}
+
+void Interface::runMadHouse(){
+    unclesMadHouse->runMadHouse();
 }

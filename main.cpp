@@ -1,9 +1,14 @@
-//#include "interface.hpp"
+#include "interface.hpp"
 #include <iostream>
 
+
 int main(int argc, char** argv){
-    for (int i = 0; i < argc; i++){
-        std::cout << typeid(argv[i]).name() << " ";
+    Interface interface(std::stof(argv[1]), std::stof(argv[2]));
+    interface.readMap();
+    try{
+        interface.readData();
     }
-    
+    catch(exception e){
+        std::cout << e.what() << std::endl;
+    }
 }

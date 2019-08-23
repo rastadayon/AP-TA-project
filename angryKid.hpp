@@ -6,21 +6,14 @@
 
 class angryKid : public kid{
     public:
+        angryKid(int id, kid::type kidType, bool fragile, float posX, float posY,
+        float velocityX, float velocityY, float radius, float anger, float charisma, float courage);
         void react(kid*);
-        angryKid(/* args */);
-        ~angryKid();
         void fight();
         void negotiate(kid*);
         kid::type getType();
 };
 
-angryKid::angryKid(/* args */)
-{
-}
-
-angryKid::~angryKid()
-{
-}
 
 
 #endif

@@ -6,9 +6,9 @@
 
 class peacefulKid : public kid{
     public:
+        peacefulKid(int id, type kidType, bool fragile, float posX, float posY, float velocityX, 
+            float velocityY, float radius, float anger, float charisma, float courage);
         void react(kid*);
-        peacefulKid(/* args */);
-        ~peacefulKid();
         void negotiate(kid*);
         void unite(kid*);
         void chase(kid*);

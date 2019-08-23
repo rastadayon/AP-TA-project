@@ -1,10 +1,8 @@
-#ifndef __EXCEPTION_H__
-#define __EXCEPTION_H__
+
 #include "exception.hpp"
-exception::exception(std::string _error): error(_error) {}
+
+exception::exception(std::string error): error(error){}
 
 std::string exception::what(){
     return error;
 }
-
-#endif

@@ -6,9 +6,9 @@
 
 class cowardKid : public kid{
     public:
+        cowardKid(int id, type kidType, bool fragile, float posX, float posY,
+            float velocityX, float velocityY, float radius, float anger, float charisma, float courage);
         void react(kid*);
-        cowardKid(/* args */);
-        ~cowardKid();
         kid::type getType();
 };
 

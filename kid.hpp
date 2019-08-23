@@ -14,6 +14,12 @@
 #define TWOHUNDRED 200
 #define POINT_EIGHT 0.8
 #define DEAD_ANOUNCEMENT "kid died with number: "
+#define PEACEFUL "Peaceful"
+#define ANGRY "Angry"
+#define COWARD "Coward"
+#define TRUE "true"
+#define FALSE "false"
+
 
 //---------------------->
 // angry = anger >= 70 -- charisma = 20 -- courage >= 50
@@ -23,9 +29,9 @@ class kid{
     private:
         /* data */
     public:
-        kid(/* args */);
-        ~kid();
-        enum type {ANGRY, PEACEFUL, COWARD};
+        enum type {Angry, Peaceful, Coward};
+        kid(int id, type kidType, bool fragile, float posX, float posY,
+        float velocityX, float velocityY, float radius, float anger, float charisma, float courage);
         virtual void react(kid*) = 0;
         virtual void negotiate(kid*);
         virtual type getType();
@@ -41,7 +47,7 @@ class kid{
 
         
     protected:
-        bool alive;
+        bool alive = true;
         float courage;
         float anger;
         float charisma;
@@ -51,14 +57,11 @@ class kid{
         float velocityX;
         float velocityY;
         int id;
-        bool fradgile; //i donno what this is
+        bool fragile;
         type kidType;
         void addAnger(float);
         void addCourage(float);
         void addCharisma(float);
 };
-
-kid::kid(/* args */){
-}
 
 #endif

@@ -1,3 +1,5 @@
+#ifndef __EXCEPTION_H__
+#define __EXCEPTION_H__
 #include <iostream>
 #include <string>
 #define MAP_DOESNT_EXIST "Map doesn't exits."
@@ -10,5 +12,5 @@ class exception{
         std::string what();
 };
 
-
+#endif
 

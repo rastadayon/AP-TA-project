@@ -1,5 +1,5 @@
-a.out: main.o interface.o angryKid.o cowardKid.o exception.o kid.o madHouse.o peacefulKid.o
-	g++ main.o interface.o angryKid.o cowardKid.o exception.o kid.o madHouse.o peacefulKid.o -std=c++11
+a.out: main.o interface.o angryKid.o cowardKid.o exception.o kid.o madHouse.o peacefulKid.o yard.o brick.o
+	g++ main.o interface.o angryKid.o cowardKid.o exception.o kid.o madHouse.o peacefulKid.o yard.o brick.o -std=c++11
 
 main.o: main.cpp
 	g++ -c main.cpp -std=c++11
@@ -24,6 +24,12 @@ madHouse.o: madHouse.cpp
 
 peacefulKid.o: peacefulKid.cpp
 	g++ -c peacefulKid.cpp -std=c++11
+
+yard.o: yard.cpp
+	g++ -c yard.cpp -std=c++11
+
+brick.o: brick.cpp
+	g++ -c brick.cpp -std=c++11
 
 clean:
 	rm *.o a.out

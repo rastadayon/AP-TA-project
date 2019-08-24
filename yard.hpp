@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "brick.hpp"
+#include "wall.hpp"
 #include <vector>
 #include <string>
 #include <tuple>
@@ -17,6 +18,7 @@ class yard{
     private:
         std::vector<std::string> rawMap;
         std::vector<brick*> bricks;
+        std::vector<wall*> walls;
         std::vector<std::tuple<float,float> > cornerCoordinates;
         void specifyCorners();
     

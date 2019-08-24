@@ -47,3 +47,9 @@ void kid::addCharisma(float number){
 }
 
 void kid::negotiate(kid *apponent){}
+
+void kid::move(int timeStep, int mapSize){
+    posX += velocityX*timeStep;
+    posY += velocityY*timeStep;
+    
+}

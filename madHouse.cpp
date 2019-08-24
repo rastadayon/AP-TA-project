@@ -19,7 +19,6 @@ void madHouse::makeKids(int id, std::string kidType, bool fragile, float posX, f
     kids.push_back(newKid);
 }
 
-
 void madHouse::useData(std::vector<std::string> data){
     if(data.size() != DATA_SIZE )
         throw exception(INVALID_INPUT_FORMAT);
@@ -36,5 +35,13 @@ void madHouse::useData(std::vector<std::string> data){
         float charisma = std::stof(data[9]);
         float courage = std::stof(data[10]);
         makeKids(id, kidType, fragile, posX, posY, velocityX, velocityY, radius, anger, charisma, courage);
+    }
+}
+
+void madHouse::runMadHouse(){
+    for (int i = 0; i < runTimes; i++){
+        for (int j = 0; j < kids.size(); j++){
+            //kids[j].move(timeStep);
+        }
     }
 }

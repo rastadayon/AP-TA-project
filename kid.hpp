@@ -42,6 +42,8 @@ class kid{
         float getVelocityX();
         float getVelocityY();
         void die();
+        void move(int, int);
+        void ifHitWall();
         std::string anounceDead();
         void changeVelocity(float, float); //------------------------->is this supposed to be in protected?
 

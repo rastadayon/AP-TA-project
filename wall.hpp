@@ -10,13 +10,20 @@
 class wall
 {
     public:
-        enum orientation {Horizontal, Vertical};
+        enum orientation {Horizontal, Vertical, oneBrick};
         wall(brick*, brick*, orientation);
         ~wall();
     private:
-        brick *start;
-        brick *finish;
+        brick *firstBrick;
+        brick *lastBrick;
         orientation wallOrientation;
+        std::vector<std::tuple<float, float>> fourWallCorners;
+        std::vector<std::tuple<float, float>> realWallCorners;
+        void setFourWallCorners();
+        void setRealWallCorners();
+        void setRealCornerForBrick(brick *);
+        
+
 };
 
 

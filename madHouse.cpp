@@ -1,6 +1,8 @@
 #include "madHouse.hpp"
 
-madHouse::madHouse(float _timeStep, float _totalTime): timeStep(_timeStep), totalTime(_totalTime){}
+madHouse::madHouse(float _timeStep, float _totalTime): timeStep(_timeStep), totalTime(_totalTime){
+    madHouseYard = new yard(map);
+}
 
 void madHouse::setMap(int _mapSize, std::vector<std::string> _map){
     map = _map;

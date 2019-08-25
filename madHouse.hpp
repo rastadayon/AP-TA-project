@@ -8,15 +8,20 @@
 #include "angryKid.hpp"
 #include "peacefulKid.hpp"
 #include "cowardKid.hpp"
+#include "yard.hpp"
+
 #define DATA_SIZE 11
 
 class madHouse{
     std::vector<std::string> map;
+    yard* madHouseYard; 
     int mapSize;
     float timeStep;
     float totalTime;
+    float virtualTimeStep = 1/timeStep * 100;
     int runTimes = totalTime/timeStep;
     std::vector<kid *> kids;
+
 
     public:
         madHouse(float, float);

@@ -8,6 +8,10 @@ bottomLeftBrick(bottomLeftBrick){
     coordinate = std::make_tuple(posX, posY);
 }
 
+brick::brick(float posX, float posY){
+    coordinate = std::make_tuple(posX, posY);
+}
+
 bool brick::isRightBrick() {return rightSideBrick;}
 bool brick::isLeftBrick() {return leftSideBrick;}
 bool brick::isTopBrick() {return topSideBrick;}

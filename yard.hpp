@@ -15,13 +15,15 @@ class yard{
         ~yard();
         void addCornerCords(float, float);
         void setBricks();
+        void setWalls();
     private:
         std::vector<std::string> rawMap;
         std::vector<brick*> bricks;
         std::vector<wall*> walls;
-        std::vector<std::tuple<float,float> > cornerCoordinates;
+        // ددذ std::vector<std::tuple<float,float> > cornerCoordinates;
         void specifyCorners();
         bool ifCornerCoordExists(std::tuple<float, float>);
+        brick* getBrickByCoords(float, float);
 };
 
 

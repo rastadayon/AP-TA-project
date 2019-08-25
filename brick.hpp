@@ -11,6 +11,7 @@ class brick
     public:
         enum brickType {TOPBRICK, FILE};
         brick(bool, bool, bool, bool, bool, bool, bool, bool, float, float);
+        brick(float, float);
         bool isRightBrick();
         bool isLeftBrick();
         bool isTopBrick();

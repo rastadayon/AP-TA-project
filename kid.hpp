@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "wall.hpp"
 
 
 #define ANGER_THRESHOLD 70
@@ -26,8 +27,7 @@
 // peaceful = anger <= 30 -- charisma >= 50 -- courage <= 30
 // coward = anger >= 0 -- charisma = 0 -- courage = 0
 class kid{
-    private:
-        /* data */
+
     public:
         enum type {Angry, Peaceful, Coward};
         kid(int id, type kidType, bool fragile, float posX, float posY,
@@ -61,6 +61,7 @@ class kid{
         int id;
         bool fragile;
         type kidType;
+        std::vector<wall*> closestwalls;
         void addAnger(float);
         void addCourage(float);
         void addCharisma(float);

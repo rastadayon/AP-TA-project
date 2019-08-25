@@ -1,6 +1,9 @@
 #include "yard.hpp"
 
-yard::yard(std::vector<std::string> map): rawMap(map){}
+yard::yard(std::vector<std::string> map): rawMap(map){
+    setBricks();
+    setWalls();
+}
 
 bool checkTop(std::vector<std::string> map, int i, int j){
     if(i == map.size()-1)
@@ -90,49 +93,73 @@ void yard::setBricks(){
     }
 }
 
-void yard::addCornerCords(float posX, float posY){
-    cornerCoordinates.push_back(std::make_tuple(posX, posY));
-}
+// void yard::addCornerCords(float posX, float posY){
+//     cornerCoordinates.push_back(std::make_tuple(posX, posY));
+// }
 
-bool checkTopRightCorner(brick *b){
-    if(!(b->isTopBrick()) && !(b->isTopRightBrick()) && !(b->isRightBrick()))
-        return true;
-    return false;
-}
 
-bool checkTopLeftCorner(brick *b){
-    if(!(b->isTopBrick()) && !(b->isTopLeftBrick()) && !(b->isLeftBrick()))
-        return true;
-    return false;
-}
 
-bool checkBottomRightCorner(brick *b){
-    if(!(b->isRightBrick()) && !(b->isBottomRightBrick()) && !(b->isBottomBrick()))
-        return true;
-    return false;
-}
+// bool yard::ifCornerCoordExists(std::tuple<float,float> cord){
+//     for (int i = 0; i < cornerCoordinates.size(); i++){
+//         if (std::get<0>(cord) == std::get<0>(cornerCoordinates[i]) && std::get<1>(cord) == std::get<1>(cornerCoordinates[i]))
+//         return true;
+//     }
+//     return false;
+// }
 
-bool checkBottomLeftCorner(brick *b){
-    if(!(b->isLeftBrick()) && !(b->isBottomLeftBrick()) && !(b->isBottomBrick()))
-        return true;
-    return false;
-}
+// void yard::specifyCorners(){
+//     for (int i = 0; i < bricks.size(); i++){
+//         std::tuple<float,float> cord = bricks[i]->getCoordinate();
+//         float posX, float posY;
+//         bool topRightCorner = checkTopRightCorner(bricks[i]);
+//         bool topLeftCorner = checkTopLeftCorner(bricks[i]);
+//         bool bottomRightCorner = checkBottomRightCorner(bricks[i]);
+//         bool bottomLeftCorner = checkBottomLeftCorner(bricks[i]);
+//         if(bottomRightCorner && !(ifCornerCoordExists(std::tuple<bricks[i]->))){
 
-bool yard::ifCornerCoordExists(std::tuple<float,float> cord){
-    for (int i = 0; i < cornerCoordinates.size(); i++){
-        
-    }
-    
-}
+//         }
+//     }
+//}
 
-void yard::specifyCorners(){
+brick* yard::getBrickByCoords(float posX, float posY){
     for (int i = 0; i < bricks.size(); i++){
-        bool topRightCorner = checkTopRightCorner(bricks[i]);
-        bool topLeftCorner = checkTopLeftCorner(bricks[i]);
-        bool bottomRightCorner = checkBottomRightCorner(bricks[i]);
-        bool bottomLeftCorner = checkBottomLeftCorner(bricks[i]);
-        if(bottomRightCorner){
+        std::tuple<float, float> coord;
+        coord = bricks[i]->getCoordinate();
+        if(posX == std::get<0>(coord) && posY == std::get<1>(coord)){
+            return bricks[i];
+        }
+    }
+    return NULL;
+}
 
+void yard::setWalls(){
+    for (int i = 0; i < rawMap.size(); i++){
+        for (int j = 0; j < rawMap[i].size(); j++){
+            if(rawMap[i][j] == B){
+                brick* firstBrick = getBrickByCoords(j, i);
+                brick* lastBrick;
+                if(j != rawMap[i].size()-1 && rawMap[i][j+1] == B){
+                    int k = j+1;
+                    while(rawMap[i][k] == B){
+                        lastBrick = getBrickByCoords(k, i);
+                        k++;
+                    }
+                    if(lastBrick != NULL && firstBrick != NULL)
+                        walls.push_back(new wall(firstBrick, lastBrick, wall::Horizontal));
+                }
+                else if( i!= rawMap.size()-1 && rawMap[i][j+1] == B){
+                    int l = i+1;
+                    while(rawMap[l][j] == B){
+                        lastBrick = getBrickByCoords(i, l);
+                        l++;
+                    }
+                    if(firstBrick != NULL && lastBrick != NULL)
+                        walls.push_back(new wall(firstBrick, lastBrick, wall::Vertical));
+                }
+                else if(i!= rawMap.size()-1 && j != rawMap[i].size()-1)
+                    walls.push_back(new wall(firstBrick, firstBrick, wall::oneBrick));
+            }
         }
     }
 }
+

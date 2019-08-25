@@ -12,3 +12,9 @@ bool brick::isRightBrick() {return rightSideBrick;}
 bool brick::isLeftBrick() {return leftSideBrick;}
 bool brick::isTopBrick() {return topSideBrick;}
 bool brick::isBottomBrick() {return bottomSideBrick;}
+bool brick::isTopRightBrick() {return topRightBrick;}
+bool brick::isTopLeftBrick() {return topLeftBrick;}
+bool brick::isBottomRightBrick() {return bottomRightBrick;}
+bool brick::isBottomLeftBrick() {return bottomLeftBrick;}
+
+std::tuple<float,float> brick::getCoordinate(){ return coordinate;}

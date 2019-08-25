@@ -90,8 +90,49 @@ void yard::setBricks(){
     }
 }
 
+void yard::addCornerCords(float posX, float posY){
+    cornerCoordinates.push_back(std::make_tuple(posX, posY));
+}
+
+bool checkTopRightCorner(brick *b){
+    if(!(b->isTopBrick()) && !(b->isTopRightBrick()) && !(b->isRightBrick()))
+        return true;
+    return false;
+}
+
+bool checkTopLeftCorner(brick *b){
+    if(!(b->isTopBrick()) && !(b->isTopLeftBrick()) && !(b->isLeftBrick()))
+        return true;
+    return false;
+}
+
+bool checkBottomRightCorner(brick *b){
+    if(!(b->isRightBrick()) && !(b->isBottomRightBrick()) && !(b->isBottomBrick()))
+        return true;
+    return false;
+}
+
+bool checkBottomLeftCorner(brick *b){
+    if(!(b->isLeftBrick()) && !(b->isBottomLeftBrick()) && !(b->isBottomBrick()))
+        return true;
+    return false;
+}
+
+bool yard::ifCornerCoordExists(std::tuple<float,float> cord){
+    for (int i = 0; i < cornerCoordinates.size(); i++){
+        
+    }
+    
+}
+
 void yard::specifyCorners(){
     for (int i = 0; i < bricks.size(); i++){
-        
+        bool topRightCorner = checkTopRightCorner(bricks[i]);
+        bool topLeftCorner = checkTopLeftCorner(bricks[i]);
+        bool bottomRightCorner = checkBottomRightCorner(bricks[i]);
+        bool bottomLeftCorner = checkBottomLeftCorner(bricks[i]);
+        if(bottomRightCorner){
+
+        }
     }
 }

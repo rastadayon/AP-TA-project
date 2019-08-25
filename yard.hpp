@@ -21,7 +21,7 @@ class yard{
         std::vector<wall*> walls;
         std::vector<std::tuple<float,float> > cornerCoordinates;
         void specifyCorners();
-    
+        bool ifCornerCoordExists(std::tuple<float, float>);
 };
 
 

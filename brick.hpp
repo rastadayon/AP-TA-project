@@ -15,6 +15,11 @@ class brick
         bool isLeftBrick();
         bool isTopBrick();
         bool isBottomBrick();
+        bool isTopRightBrick();
+        bool isTopLeftBrick();
+        bool isBottomRightBrick();
+        bool isBottomLeftBrick();
+        std::tuple<float,float> getCoordinate();
 
     private:
         bool rightSideBrick;

@@ -23,6 +23,10 @@ float kid::getPosX(){ return posX;}
 
 float kid::getPosY(){ return posY;}
 
+bool kid::isAlive(){ return alive;}
+
+bool kid::isFragile(){ return fragile;}
+
 std::vector<kid *> kid::getHitKids(){ return hitKids;}
 
 void kid::addAnger(float number){
@@ -36,7 +40,9 @@ std::string kid::anounceDead(){
 
 void kid::die(){
     alive = false;
-    std::cout << anounceDead() << std::endl;
+    if(anouncedDead != true)
+        std::cout << anounceDead() << std::endl;
+    anouncedDead = true;
 }
 
 void kid::addCourage(float number){
@@ -63,13 +69,6 @@ void kid::changePos(float newPosX, float newPosY){
     posY = newPosY;
 }
 
-// void kid::moveTinyBit(){
-//     finalPosX += velocityX/getVelocitySize() * VIRTUAL_TIMESTEP;
-//     finalPosY += velocityY/getVelocitySize() * VIRTUAL_TIMESTEP;
-//     std::cerr<<"finalPosX = " << finalPosX <<std::endl;
-//     std::cerr<<"finalPosY = " << finalPosY <<std::endl;
-// }
-
 bool kid::isMovingRight(){
     if(velocityX > 0)
         return true;
@@ -93,65 +92,6 @@ bool kid::isMovingDown(){
         return true;
     return false;
 }
-
-// bool kid::isHorizontalWallClose(wall *w){
-//     brick *firstBrick = w->getFirstBrick();
-//     brick *lastBrick = w->getLastBrick();
-//     std::tuple<float,float> firstCords = firstBrick->getCoordinate();
-//     std::tuple<float,float> lastCords = lastBrick->getCoordinate();
-//     if(isMovingDown()) //only check top side 
-//         if(finalPosY - std::get<1>(firstCords)+1 <= radius + CLOSENESS_THRESHOLD)
-//             return true;
-//     if(isMovingUp())
-//         if(std::get<1>(firstCords) - finalPosY <= radius +CLOSENESS_THRESHOLD)
-//             return true;
-//     if(isMovingLeft())
-//         if(finalPosX - std::get<0>(lastCords)+1 <= radius + CLOSENESS_THRESHOLD)
-//             return true;
-//     if(isMovingRight())
-//         if(std::get<0>(firstCords) - finalPosX <= radius + CLOSENESS_THRESHOLD)
-//             return true;
-//     return false;
-// }
-
-// bool kid::isVerticalWallClose(wall *w){
-//     brick *firstBrick = w->getFirstBrick();
-//     brick *lastBrick = w->getLastBrick();
-//     std::tuple<float,float> firstCords = firstBrick->getCoordinate();
-//     std::tuple<float,float> lastCords = lastBrick->getCoordinate();
-//     if(isMovingDown())
-//         if(finalPosY - std::get<1>(lastCords)+1 <= radius + CLOSENESS_THRESHOLD)
-//             return true;
-//     if(isMovingUp())
-//         if(std::get<1>(firstCords) - finalPosY <= radius + CLOSENESS_THRESHOLD)
-//             return true;
-//     if(isMovingLeft())
-//         if(finalPosX - std::get<0>(firstCords)+1 <= radius + CLOSENESS_THRESHOLD)
-//             return true;
-//     if(isMovingRight())
-//         if(std::get<0>(firstCords) - finalPosX <= radius + CLOSENESS_THRESHOLD)
-//             return true;
-//     return false;
-// }
-
-// bool kid::isWallClose(wall *w){
-//     bool horizontalWallClose = false, verticalWallClose = false;
-//     if(w->getOrientation() == wall::Horizontal || w->getOrientation() == wall::oneBrick)
-//         horizontalWallClose = isHorizontalWallClose(w);
-//     if(w->getOrientation() == wall::Vertical)
-//         verticalWallClose = isVerticalWallClose(w);
-//     if(verticalWallClose || horizontalWallClose)
-//         return true;
-//     return false;
-// }
-
-// void kid::setCloseWalls(std::vector<wall *>walls){
-//     closestwalls.clear();
-//     for (int i = 0; i < walls.size(); i++){
-//         if(isWallClose(walls[i]))
-//             closestwalls.push_back(walls[i]);
-//     }
-// }
 
 std::tuple<float, float> getVerticalTangentPoint(float height, float xi, float yi, float xf, float yf){
     if(xi == xf)
@@ -181,7 +121,7 @@ std::tuple<float, float> kid::getTangentPoint(wall *w){
             tangentPoint = getHorizontalTangentPoint(std::get<1>(w->getFirstBrick()->getCoordinate())-radius,
             posX, posY, finalEstimatedX, finalEstimatedY);
     }
-    if(w->getOrientation() == wall::Vertical || w->getOrientation == wall::oneBrick){
+    if(w->getOrientation() == wall::Vertical || w->getOrientation() == wall::oneBrick){
         if(isMovingRight())
             tangentPoint = getVerticalTangentPoint(std::get<0>(w->getFirstBrick()->getCoordinate())-radius,
             posX, posY, finalEstimatedX, finalEstimatedY);
@@ -272,7 +212,7 @@ bool kid::isGonnaHitVertical(wall *w, float timeStep){
 bool kid::isGonnaHitWall(wall* w, float timeStep){
     finalEstimatedX = posX + velocityX*timeStep;
     finalEstimatedY = posY + velocityY*timeStep;
-    if(w->getOrientation == wall::Horizontal || w->getOrientation() == wall::oneBrick)
+    if(w->getOrientation() == wall::Horizontal || w->getOrientation() == wall::oneBrick)
         return isGonnaHitHorizontal(w, timeStep);
     else if(w->getOrientation() == wall::Vertical)
         return isGonnaHitVertical(w, timeStep);
@@ -301,7 +241,7 @@ void kid::addHitKid(kid * k){
 }
 
 bool kid::isKidClose(kid *k){
-    if(getDistance(posX, k->getPosX(), posY, k->getPosY()) <= radius + k->getRadius)
+    if(getDistance(posX, k->getPosX(), posY, k->getPosY()) <= radius + k->getRadius())
         return true;
     return false;
 }
@@ -330,3 +270,58 @@ void kid::move(float timeStep, int mapSize, std::vector<wall *> walls){
     }
 }
 
+void kid::addCourage(int number){
+    courage += number;
+}
+
+void kid::setVelocityX(float Vx){
+    velocityX = Vx;
+}
+
+void kid::setVelocityY(float Vy){
+    velocityY = Vy;
+}
+
+void kid::hit(kid * k){
+    float r1 = radius;
+    float r2 = k->getRadius();
+    float u1x = velocityX;
+    float u1y = velocityY;
+    float u2x = k->getVelocityX();
+    float u2y = k->getVelocityY();
+    
+    float v1x = ((pow(r1,2) - pow(r2,2))/(pow(r1,2) + pow(r2,2)))*u1x + ((2*pow(r2,2))/(pow(r1,2) + pow(r2,2)))*u2x;
+    float v1y = ((pow(r1,2) - pow(r2,2))/(pow(r1,2) + pow(r2,2)))*u1y + ((2*pow(r2,2))/(pow(r1,2) + pow(r2,2)))*u2y;
+    float v2x = ((pow(r2,2) - pow(r1,2))/(pow(r1,2) + pow(r2,2)))*u2x + ((2*pow(r1,2))/(pow(r1,2) + pow(r2,2)))*u1x;
+    float v2y = ((pow(r2,2) - pow(r1,2))/(pow(r1,2) + pow(r2,2)))*u2y + ((2*pow(r1,2))/(pow(r1,2) + pow(r2,2)))*u1y;
+
+    velocityX = v1x;
+    velocityY = v1y;
+    k->setVelocityX(v2x);
+    k->setVelocityY(v2y);
+}
+
+bool kid::ifDied(){
+    if(anger >= DEADLY_ANGER_LIMIT || radius <= DEADLY_RADIUS_LIMIT){
+        die();
+        return true;
+    }
+    return false;
+}
+
+void kid::_break(){
+    if(radius <= DEADLY_RADIUS_LIMIT_FOR_BREAKING)
+        die();
+    
+}
+
+std::string kid::getTypeString(){
+    std::string kidTypeStr;
+    if(kidType == kid::Angry)
+        kidTypeStr = ANGRY;
+    else if(kidType == kid::Peaceful)
+        kidTypeStr = PEACEFUL;
+    else if(kidType == kid::Coward)
+        kidTypeStr = COWARD;
+    return kidTypeStr;
+}

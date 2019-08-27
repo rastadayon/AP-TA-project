@@ -24,7 +24,9 @@
 #define TRUE "true"
 #define FALSE "false"
 #define CLOSENESS_THRESHOLD 1
-
+#define DEADLY_ANGER_LIMIT 100
+#define DEADLY_RADIUS_LIMIT 0
+#define DEADLY_RADIUS_LIMIT_FOR_BREAKING 6
 
 //---------------------->
 // angry = anger >= 70 -- charisma = 20 -- courage >= 50
@@ -47,7 +49,10 @@ class kid{
         float getVelocityY();
         float getPosX();
         float getPosY();
+        bool isFragile();
+        std::string getTypeString();
         std::vector<kid *> getHitKids();
+        bool ifDied();
         void die();
         void move(float, int, std::vector<wall *>);
         void ifHitWall();
@@ -57,6 +62,12 @@ class kid{
         void changePos(float newPosX, float newPosY);
         void addHitKid(kid *);
         bool isKidClose(kid *);
+        bool isAlive();
+        void addCourage(int);
+        void hit(kid *);
+        void setVelocityX(float);
+        void setVelocityY(float);
+        void _break();
 
     protected:
         bool alive = true;
@@ -72,6 +83,7 @@ class kid{
         float velocityY;
         int id;
         bool fragile;
+        bool anouncedDead = false;
         type kidType;
         std::vector<wall *> closestwalls;
         std::vector<kid *> hitKids;

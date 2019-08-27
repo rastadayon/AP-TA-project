@@ -2,6 +2,7 @@
 
 madHouse::madHouse(float _timeStep, float _totalTime): timeStep(_timeStep), totalTime(_totalTime){
     madHouseYard = new yard(map);
+    _impact = new impact;
 }
 
 void madHouse::setMap(int _mapSize, std::vector<std::string> _map){
@@ -55,19 +56,80 @@ void madHouse::activateImpacts(){
     for (int i = 0; i < kids.size(); i++){
         std::vector<kid *> hitKids = kids[i]->getHitKids();
        for (int j = 0; j < hitKids.size(); j++){
-           /* code */
+           kids[i]->react(hitKids[i]);
+
        }
-       
+    }
+}
+
+void madHouse::breakKid(kid *k){
+    float velocitySize = k->getVelocitySize()/6;
+    int maxId = kids.size();
+    float velocityX, velocityY;
+    std::string kidType;
+    kidType = k->getTypeString();
+    for (int i = 0; i < BREAKING_PIECE_NUMBER; i++){
+        maxId++;
+        if(i == 0){
+            velocityX = velocitySize;
+            velocityY = 0;
+        }
+        if(i == 1){
+            velocityX = velocitySize/2;
+            velocityY = velocitySize*sqrt(3)/2;
+        }
+        if(i == 2){
+            velocityX = -velocitySize/2;
+            velocityY = velocitySize*sqrt(3)/2;
+        }
+        if(i == 3){
+            velocityX = -velocitySize;
+            velocityY = 0;
+        }
+        if(i == 4){
+            velocityX = -velocitySize/2;
+            velocityY = -velocitySize*sqrt(3)/2;
+        }
+        if(i == 5){
+            velocityX = velocitySize/2;
+            velocityY = -velocitySize*sqrt(3)/2;
+        }
+        makeKids(maxId, kidType, k->isFragile(), k->getPosX(), k->getPosY(), k->getVelocityX()
+        ,k->getVelocityY(), k->getRadius()/3, k->getAnger(), k->getCharisma(), k->getCourage());
     }
     
+}
+
+void madHouse::handleBreakings(){
+    for (int i = 0; i < kids.size(); i++){
+        for (int j = i; j < kids.size(); j++){
+            if(i != j && kids[i]->isAlive() && kids[j]->isAlive() && kids[i]->isKidClose(kids[j])){
+                if(kids[i]->getRadius() + kids[j]->getRadius() >= FRAGILITY_THRESHOLD){
+                    if(kids[i]->isFragile()){
+                        kids[i]->_break();
+                        if(kids[i]->isAlive())
+                            breakKid(kids[i]);
+                    }
+                    if(kids[j]->isFragile()){
+                        kids[j]->_break();
+                        if(kids[j]->isAlive())
+                            breakKid(kids[j]);
+                    }
+                }
+            }
+        }
+    }
 }
 
 void madHouse::runMadHouse(){
     for (int i = 0; i < runTimes; i++){
         for (int j = 0; j < kids.size(); j++){
-            kids[j]->move(timeStep, mapSize, madHouseYard->getWalls());
+            if(kids[i]->isAlive())
+                kids[j]->move(timeStep, mapSize, madHouseYard->getWalls());
         }
+        _impact->setHitGroups(kids);
+        _impact->handleImpacts(kids);
+        handleBreakings();
     }
-    
-    
+    std::cout<<"Game Over" << std::endl;
 }

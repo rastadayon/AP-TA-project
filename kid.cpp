@@ -219,8 +219,11 @@ bool kid::isGonnaHitWall(wall* w, float timeStep){
 }
 
 void kid::reflect45Degree(std::tuple<float,float> pointCoords, wall *w){
-    // if(abs(velocityX) == abs(velocityY))
-    // -----------------------------------------------------> do this in the night
+    float tempX, tempY;
+    tempY = -velocityX;
+    tempX = -velocityY;
+    velocityX = tempY;
+    velocityY = tempX;
 }
 
 void kid::reflect90Degree(std::tuple<float,float> pointCoords){
@@ -324,4 +327,10 @@ std::string kid::getTypeString(){
     else if(kidType == kid::Coward)
         kidTypeStr = COWARD;
     return kidTypeStr;
+}
+
+void kid::anounce(){
+    std::cout << std::setprecision(FRACTION_PRECISION) << std::fixed;
+    std::cout<<id<<COMMA_SPACE<<getTypeString()<<COMMA_SPACE<<posX<<COMMA_SPACE<<posY<<COMMA_SPACE<<velocityX<<COMMA_SPACE<<velocityY<<
+    COMMA_SPACE<<int(radius)<<COMMA_SPACE<<int(anger)<<COMMA_SPACE<<int(charisma)<<COMMA_SPACE<<int(courage)<<std::endl;
 }

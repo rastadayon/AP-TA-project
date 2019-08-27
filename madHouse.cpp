@@ -1,13 +1,13 @@
 #include "madHouse.hpp"
 
 madHouse::madHouse(float _timeStep, float _totalTime): timeStep(_timeStep), totalTime(_totalTime){
-    madHouseYard = new yard(map);
     _impact = new impact;
 }
 
 void madHouse::setMap(int _mapSize, std::vector<std::string> _map){
     map = _map;
     mapSize = _mapSize;
+    madHouseYard = new yard(map);
 }
 
 void madHouse::makeKids(int id, std::string kidType, bool fragile, float posX, float posY,
@@ -121,8 +121,19 @@ void madHouse::handleBreakings(){
     }
 }
 
+void madHouse::anounce(int timeStepNumber){
+    std::cout<<"#"<<timeStepNumber<<std::endl;
+    for (int i = 0; i < kids.size(); i++){
+        if(kids[i]->isAlive())
+            kids[i]->anounce();
+    }
+    
+}
+
 void madHouse::runMadHouse(){
-    for (int i = 0; i < runTimes; i++){
+    int timeStepNumber = 0;
+    for (int i = 0; i < runTimes + 1; i++){
+        anounce(timeStepNumber);
         for (int j = 0; j < kids.size(); j++){
             if(kids[i]->isAlive())
                 kids[j]->move(timeStep, mapSize, madHouseYard->getWalls());
@@ -130,6 +141,7 @@ void madHouse::runMadHouse(){
         _impact->setHitGroups(kids);
         _impact->handleImpacts(kids);
         handleBreakings();
+        timeStepNumber++;
     }
     std::cout<<"Game Over" << std::endl;
 }

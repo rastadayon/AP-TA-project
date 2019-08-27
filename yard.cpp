@@ -97,34 +97,6 @@ void yard::setBricks(){
     }
 }
 
-// void yard::addCornerCords(float posX, float posY){
-//     cornerCoordinates.push_back(std::make_tuple(posX, posY));
-// }
-
-
-
-// bool yard::ifCornerCoordExists(std::tuple<float,float> cord){
-//     for (int i = 0; i < cornerCoordinates.size(); i++){
-//         if (std::get<0>(cord) == std::get<0>(cornerCoordinates[i]) && std::get<1>(cord) == std::get<1>(cornerCoordinates[i]))
-//         return true;
-//     }
-//     return false;
-// }
-
-// void yard::specifyCorners(){
-//     for (int i = 0; i < bricks.size(); i++){
-//         std::tuple<float,float> cord = bricks[i]->getCoordinate();
-//         float posX, float posY;
-//         bool topRightCorner = checkTopRightCorner(bricks[i]);
-//         bool topLeftCorner = checkTopLeftCorner(bricks[i]);
-//         bool bottomRightCorner = checkBottomRightCorner(bricks[i]);
-//         bool bottomLeftCorner = checkBottomLeftCorner(bricks[i]);
-//         if(bottomRightCorner && !(ifCornerCoordExists(std::tuple<bricks[i]->))){
-
-//         }
-//     }
-//}
-
 brick* yard::getBrickByCoords(float posX, float posY){
     for (int i = 0; i < bricks.size(); i++){
         std::tuple<float, float> coord;
@@ -148,8 +120,10 @@ void yard::setWalls(){
                         lastBrick = getBrickByCoords(k, i);
                         k++;
                     }
-                    if(lastBrick != NULL && firstBrick != NULL)
+                    if(lastBrick != NULL && firstBrick != NULL){
                         walls.push_back(new wall(firstBrick, lastBrick, wall::Horizontal));
+                    }
+                        
                 }
                 else if( i!= rawMap.size()-1 && rawMap[i][j+1] == B){
                     int l = i+1;

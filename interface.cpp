@@ -31,13 +31,11 @@ std::vector<std::string> Interface::readMapFromFile(){
 void Interface::readMap(){
     std::vector<std::string> map;
     int mapSize;
-    
     map = readMapFromFile();
     if(map.size() > 0)
         mapSize = stoi(map[0]);
     else
         throw MAP_DOESNT_EXIST;
-
     map = correctMap(map);
     unclesMadHouse->setMap(mapSize, map);
 }
@@ -64,6 +62,7 @@ void Interface::readData(){
             tokenizedData.push_back(token);
         }  
         cleanData(tokenizedData);
+        unclesMadHouse->useData(tokenizedData);
     }
     
 }

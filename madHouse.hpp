@@ -35,6 +35,7 @@ class madHouse{
         void setMap(int, std::vector<std::string>);
         void useData(std::vector<std::string>);
         void runMadHouse();
+        void anounce(int);
 
     private:
         void makeKids(int id, std::string kidType, bool fragile, float posX, float posY,

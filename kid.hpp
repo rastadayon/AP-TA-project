@@ -5,6 +5,7 @@
 #include <string>
 #include <math.h>
 #include <tuple>
+#include <iomanip>
 #include "yard.hpp"
 
 
@@ -27,11 +28,9 @@
 #define DEADLY_ANGER_LIMIT 100
 #define DEADLY_RADIUS_LIMIT 0
 #define DEADLY_RADIUS_LIMIT_FOR_BREAKING 6
+#define COMMA_SPACE ", "
+#define FRACTION_PRECISION 1
 
-//---------------------->
-// angry = anger >= 70 -- charisma = 20 -- courage >= 50
-// peaceful = anger <= 30 -- charisma >= 50 -- courage <= 30
-// coward = anger >= 0 -- charisma = 0 -- courage = 0
 class kid{
 
     public:
@@ -57,7 +56,7 @@ class kid{
         void move(float, int, std::vector<wall *>);
         void ifHitWall();
         std::string anounceDead();
-        void changeVelocity(float, float); //------------------------->is this supposed to be in protected?
+        void changeVelocity(float, float);
         float getVelocitySize();
         void changePos(float newPosX, float newPosY);
         void addHitKid(kid *);
@@ -68,6 +67,7 @@ class kid{
         void setVelocityX(float);
         void setVelocityY(float);
         void _break();
+        void anounce();
 
     protected:
         bool alive = true;
@@ -91,7 +91,6 @@ class kid{
         void addCourage(float);
         void addCharisma(float);
         bool ifHitWall(float initialPosX, float initialPosY, float estimatedPosX, float estimatedPosY);
-        bool isWallClose(wall *);
         bool isMovingRight();
         bool isMovingLeft();
         bool isMovingUp();

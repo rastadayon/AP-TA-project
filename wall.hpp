@@ -15,6 +15,7 @@ class wall
         brick* getFirstBrick();
         brick* getLastBrick();
         orientation getOrientation();
+        bool ifCorner(std::tuple<float, float>);
     private:
         brick *firstBrick;
         brick *lastBrick;

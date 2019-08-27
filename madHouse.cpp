@@ -40,11 +40,34 @@ void madHouse::useData(std::vector<std::string> data){
     }
 }
 
-void madHouse::runMadHouse(){
+void madHouse::checkForImpact(){
+    for (int i = 0; i < kids.size(); i++){
+        for (int j = 0; j < kids.size(); j++){
+            if(i == j)
+                continue;
+            if(kids[i]->isKidClose(kids[j]))
+                kids[i]->addHitKid(kids[j]);
+        }
+    }
+}
 
+void madHouse::activateImpacts(){
+    for (int i = 0; i < kids.size(); i++){
+        std::vector<kid *> hitKids = kids[i]->getHitKids();
+       for (int j = 0; j < hitKids.size(); j++){
+           /* code */
+       }
+       
+    }
+    
+}
+
+void madHouse::runMadHouse(){
     for (int i = 0; i < runTimes; i++){
         for (int j = 0; j < kids.size(); j++){
             kids[j]->move(timeStep, mapSize, madHouseYard->getWalls());
         }
     }
+    
+    
 }

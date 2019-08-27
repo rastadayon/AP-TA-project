@@ -35,6 +35,9 @@ class madHouse{
     private:
         void makeKids(int id, std::string kidType, bool fragile, float posX, float posY,
         float velocityX, float velocityY, float radius, float anger, float charisma, float courage);
+        void checkForImpact();
+        void activateImpacts();
+        bool ifKidsCanUnite(std::vector<kid *>);
 };
 
 #endif

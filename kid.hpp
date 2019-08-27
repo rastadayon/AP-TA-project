@@ -36,8 +36,8 @@ class kid{
         enum type {Angry, Peaceful, Coward};
         kid(int id, type kidType, bool fragile, float posX, float posY,
         float velocityX, float velocityY, float radius, float anger, float charisma, float courage);
-        virtual void react(kid*) = 0;
-        virtual void negotiate(kid*);
+        virtual void react(kid *) = 0;
+        virtual void negotiate(kid *);
         virtual type getType();
         float getAnger();
         float getCharisma();
@@ -45,12 +45,18 @@ class kid{
         float getRadius();
         float getVelocityX();
         float getVelocityY();
+        float getPosX();
+        float getPosY();
+        std::vector<kid *> getHitKids();
         void die();
         void move(float, int, std::vector<wall *>);
         void ifHitWall();
         std::string anounceDead();
         void changeVelocity(float, float); //------------------------->is this supposed to be in protected?
         float getVelocitySize();
+        void changePos(float newPosX, float newPosY);
+        void addHitKid(kid *);
+        bool isKidClose(kid *);
 
     protected:
         bool alive = true;
@@ -60,31 +66,32 @@ class kid{
         float radius;
         float posX;
         float posY;
-        float finalPosX;
-        float finalPosY;
+        float finalEstimatedX;
+        float finalEstimatedY;
         float velocityX;
         float velocityY;
         int id;
         bool fragile;
         type kidType;
-        std::vector<wall*> closestwalls;
+        std::vector<wall *> closestwalls;
+        std::vector<kid *> hitKids;
         void addAnger(float);
         void addCourage(float);
         void addCharisma(float);
-        void moveTinyBit();
         bool ifHitWall(float initialPosX, float initialPosY, float estimatedPosX, float estimatedPosY);
-        void setCloseWalls(std::vector<wall *>);
         bool isWallClose(wall *);
         bool isMovingRight();
         bool isMovingLeft();
         bool isMovingUp();
         bool isMovingDown();
-        bool isHorizontalWallClose(wall *);
-        bool isVerticalWallClose(wall *);
-        wall* hittingWall(float, float);
+        wall* hittingWall();
         bool isGonnaHitWall(wall *, float);
         bool isGonnaHitHorizontal(wall *, float);
         bool isGonnaHitVertical(wall *, float);
+        std::tuple<float, float> getTangentPoint(wall *);
+        void reflect45Degree(std::tuple<float,float>, wall *);
+        void reflect90Degree(std::tuple<float,float>);
+        
 };
 
 #endif

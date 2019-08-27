@@ -1,5 +1,11 @@
 #include "wall.hpp"
 
+wall::wall(brick *firstBrick, brick *lastBrick, orientation wallOrientation): firstBrick(firstBrick), lastBrick(lastBrick)
+    ,wallOrientation(wallOrientation){
+    setFourWallCorners();
+    setRealWallCorners();
+}
+
 bool checkTopRightCorner(brick *b){
     if(!(b->isTopBrick()) && !(b->isTopRightBrick()) && !(b->isRightBrick()))
         return true;
@@ -28,11 +34,15 @@ void wall::setFourWallCorners(){
     std::tuple<float,float> firstPoint = firstBrick->getCoordinate();
     std::tuple<float,float> lastPoint = lastBrick->getCoordinate();
     fourWallCorners.push_back(firstPoint);
-    fourWallCorners.push_back(std:: make_tuple(std::get<0>(lastPoint) + 1, std::get<1>(lastPoint)));
-    if(wallOrientation == Horizontal){
-        std::tuple<float,float> secondPoint, thirdPoint;
+    if(wallOrientation == Horizontal || wallOrientation == oneBrick){
         fourWallCorners.push_back(std::make_tuple(std::get<0>(firstPoint), std::get<1>(firstPoint) + 1));
         fourWallCorners.push_back(std:: make_tuple(std::get<0>(lastPoint) + 1, std::get<1>(lastPoint) + 1));
+        fourWallCorners.push_back(std:: make_tuple(std::get<0>(lastPoint) + 1, std::get<1>(lastPoint)));
+    }
+    else if(wallOrientation == Vertical){
+        fourWallCorners.push_back(std:: make_tuple(std::get<0>(lastPoint), std::get<1>(lastPoint) + 1));
+        fourWallCorners.push_back(std::make_tuple(std::get<0>(lastPoint) + 1, std::get<1>(lastPoint) + 1));
+        fourWallCorners.push_back(std:: make_tuple(std::get<0>(lastPoint) + 1, std::get<1>(firstPoint)));
     }
 }
 
@@ -57,11 +67,16 @@ void wall::setRealWallCorners(){
     setRealCornerForBrick(lastBrick);
 }
 
-wall::wall(brick *firstBrick, brick *lastBrick, orientation wallOrientation): firstBrick(firstBrick), lastBrick(lastBrick)
-    ,wallOrientation(wallOrientation){
-        
-}
-
 brick* wall::getFirstBrick() { return firstBrick;}
+
 brick* wall::getLastBrick() { return lastBrick;}
+
 wall::orientation wall::getOrientation() { return wallOrientation;}
+
+bool wall::ifCorner(std::tuple<float, float> coord){
+    for (int i = 0; i < realWallCorners.size(); i++){
+        if(coord == realWallCorners[i])
+            return true;
+    }
+    return false;
+}

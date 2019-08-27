@@ -11,6 +11,9 @@
 #include "yard.hpp"
 
 #define DATA_SIZE 11
+#define HUNDRED 100
+#define THIRTY 30
+
 
 class madHouse{
     std::vector<std::string> map;
@@ -18,7 +21,7 @@ class madHouse{
     int mapSize;
     float timeStep;
     float totalTime;
-    float virtualTimeStep = 1/timeStep * 100;
+    float virtualTimeStep = timeStep * HUNDRED;
     int runTimes = totalTime/timeStep;
     std::vector<kid *> kids;
 

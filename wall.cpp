@@ -61,3 +61,7 @@ wall::wall(brick *firstBrick, brick *lastBrick, orientation wallOrientation): fi
     ,wallOrientation(wallOrientation){
         
 }
+
+brick* wall::getFirstBrick() { return firstBrick;}
+brick* wall::getLastBrick() { return lastBrick;}
+wall::orientation wall::getOrientation() { return wallOrientation;}

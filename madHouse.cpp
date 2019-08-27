@@ -12,9 +12,9 @@ void madHouse::setMap(int _mapSize, std::vector<std::string> _map){
 void madHouse::makeKids(int id, std::string kidType, bool fragile, float posX, float posY,
     float velocityX, float velocityY, float radius, float anger, float charisma, float courage){
         kid *newKid;
-    if(kidType == ANGRY)
+    if(kidType == ANGRY && anger >= ANGER_THRESHOLD && charisma == TWENTY && courage >= COURAGE_THRESHOLD)
         newKid = new angryKid(id, kid::type::Angry, fragile, posX, posY, velocityX, velocityY, radius, anger, charisma, courage);
-    else if(kidType == PEACEFUL)
+    else if(kidType == PEACEFUL && anger <= THIRTY && charisma )
         newKid = new peacefulKid(id, kid::type::Peaceful, fragile, posX, posY, velocityX, velocityY, radius, anger, charisma, courage);
     else if(kidType == COWARD)
         newKid = new cowardKid(id, kid::type::Coward, fragile, posX, posY, velocityX, velocityY, radius, anger, charisma, courage);
@@ -41,9 +41,10 @@ void madHouse::useData(std::vector<std::string> data){
 }
 
 void madHouse::runMadHouse(){
+
     for (int i = 0; i < runTimes; i++){
         for (int j = 0; j < kids.size(); j++){
-            //kids[j].move(timeStep);
+            kids[j]->move(timeStep, mapSize, madHouseYard->getWalls());
         }
     }
 }

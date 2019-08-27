@@ -13,7 +13,7 @@ void angryKid::fight(){
 
 void angryKid::negotiate(kid*opponent){
     radius = (1 - ((opponent->getCourage() + opponent->getCharisma())/TWOHUNDRED))*POINT_EIGHT*(opponent->getRadius());
-    std::cout << "angry negotiate" << std::endl;
+    std::cerr << "angry negotiate" << std::endl;
 }
 
 void angryKid::react(kid *opponent){

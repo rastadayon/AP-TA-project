@@ -35,6 +35,8 @@ void Interface::readMap(){
     map = readMapFromFile();
     if(map.size() > 0)
         mapSize = stoi(map[0]);
+    else
+        throw MAP_DOESNT_EXIST;
 
     map = correctMap(map);
     unclesMadHouse->setMap(mapSize, map);

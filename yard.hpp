@@ -16,6 +16,7 @@ class yard{
         void addCornerCords(float, float);
         void setBricks();
         void setWalls();
+        std::vector<wall *> getWalls();
     private:
         std::vector<std::string> rawMap;
         std::vector<brick*> bricks;

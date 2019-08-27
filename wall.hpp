@@ -12,7 +12,9 @@ class wall
     public:
         enum orientation {Horizontal, Vertical, oneBrick};
         wall(brick*, brick*, orientation);
-        ~wall();
+        brick* getFirstBrick();
+        brick* getLastBrick();
+        orientation getOrientation();
     private:
         brick *firstBrick;
         brick *lastBrick;
@@ -22,7 +24,6 @@ class wall
         void setFourWallCorners();
         void setRealWallCorners();
         void setRealCornerForBrick(brick *);
-        
 
 };
 

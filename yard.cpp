@@ -5,6 +5,10 @@ yard::yard(std::vector<std::string> map): rawMap(map){
     setWalls();
 }
 
+std::vector<wall *> yard::getWalls(){
+    return walls;
+}
+
 bool checkTop(std::vector<std::string> map, int i, int j){
     if(i == map.size()-1)
         return false;
